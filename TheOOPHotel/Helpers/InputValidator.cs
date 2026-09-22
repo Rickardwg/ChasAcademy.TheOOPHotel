@@ -3,6 +3,8 @@
 public static class InputValidator
 {
     private static int _phoneNumberLength = 10;
+
+    // --- MAIN VALIDATION METHOD ---
     public static T GetValidInput<T>(Func<string?, (bool isValid, T value)> validateInput, string prompt)
     {
         while (true)
@@ -21,6 +23,7 @@ public static class InputValidator
         }
     }
 
+    // --- VALIDATION METHODS ---
     public static (bool isValid, string? value) ValidateName(string? input)
     {
         if (!string.IsNullOrWhiteSpace(input) && !input.All(char.IsLetter)) return (true, input.Trim());

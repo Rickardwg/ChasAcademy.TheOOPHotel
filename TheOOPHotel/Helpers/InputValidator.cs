@@ -2,60 +2,40 @@
 
 public static class InputValidator
 {
-    private static int _phoneNumberLength = 10;
-
-    // --- MAIN VALIDATION METHOD ---
-    public static T GetValidInput<T>(Func<string?, (bool isValid, T value)> validateInput, string prompt)
+    public static bool IsValidName(string? name)
     {
-        while (true)
-        {
-            Console.Write(prompt);
-            var input = Console.ReadLine();
-            (var isValid, var value) = validateInput(input);
+        return !string.IsNullOrWhiteSpace(name)
+                && name.All(char.IsLetter);
 
-            if (isValid)
-            {
-                return value;
-            }
-
-            Console.WriteLine("Ogiltig inmatning, försök igen!");
-            Console.WriteLine();
-        }
     }
 
-    // --- VALIDATION METHODS ---
-    public static (bool isValid, string? value) ValidateName(string? input)
+    public static bool IsValidEmail(string? email)
     {
-        if (!string.IsNullOrWhiteSpace(input) && !input.All(char.IsLetter)) return (true, input.Trim());
-
-        return (false, default);
+        return !string.IsNullOrWhiteSpace(email)
+                && email.Contains('@')
+                && email.Contains('.');
     }
 
-    public static (bool isValid, string? value) ValidateEmail(string? input)
+    public static bool IsValidPhoneNumber(string? phoneNumber)
     {
-        if (!string.IsNullOrWhiteSpace(input) && input.Contains('@') && input.Contains('.')) return (true, input.Trim());
-
-        return (false, default);
+        return !string.IsNullOrWhiteSpace(phoneNumber)
+                && phoneNumber.Length == 10
+                && phoneNumber.All(char.IsDigit);
     }
 
-    public static (bool isValid, string? value) ValidatePhoneNumber(string? input)
+    public static bool IsValidDate(string? input, out DateTime date)
     {
-        if (!string.IsNullOrWhiteSpace(input) && input.Length == _phoneNumberLength && input.All(char.IsDigit)) return (true, input);
-
-        return (false, default);
+        return DateTime.TryParse(input, out date);
     }
 
-    public static (bool isValid, DateTime? value) ValidateStartDate(string? input)
+    public static bool IsValidStartDate(DateTime startDate)
     {
-        if (DateTime.TryParse(input, out DateTime result) && result >= DateTime.Now.Date) return (true, result);
-
-        return (false, default);
+        return startDate >= DateTime.Today;
     }
 
-    public static (bool isValid, int? value) ValidateLengthOfStay(string? input)
+    public static bool IsValidLengthOfStay(string? input, out int lengthOfStay)
     {
-        if (int.TryParse(input, out int result) && result > 0) return (true, result);
-
-        return (false, default);
+        return int.TryParse(input, out lengthOfStay)
+               && lengthOfStay > 0;
     }
 }

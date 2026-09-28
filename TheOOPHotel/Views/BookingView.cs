@@ -113,14 +113,14 @@ internal class BookingView
 
     internal void DisplayMessage(string message)
     {
+        Console.Clear();
         Console.WriteLine(message);
-        Console.ReadKey();
     }
 
     internal void DisplayBooking(Booking booking)
     {
         Console.WriteLine($"ID: {booking.Id}");
-        Console.WriteLine($"Datum: {booking.StartDate} - {booking.EndDate}");
+        Console.WriteLine($"Datum: {booking.StartDate:d} - {booking.EndDate:d}");
         Console.WriteLine($"Rum: {booking.Room.Type}, nr. {booking.Room.Number}");
         Console.WriteLine($"Kostnad: {booking.TotalPrice} kr");
     }

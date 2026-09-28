@@ -61,9 +61,9 @@ internal class BookingController(BookingView bookingView, BookingService booking
 
         var booking = _bookingService.AddBooking(bookingInput);
 
-        Console.Clear();
         _bookingView.DisplayMessage("Bokningen har skapats.");
         _bookingView.DisplayBooking(booking);
+        Console.ReadKey();
     }
 
     private void EditBooking()
@@ -121,16 +121,14 @@ internal class BookingController(BookingView bookingView, BookingService booking
 
         _bookingService.EditBooking(bookingId, bookingInput);
 
-        Console.Clear();
         _bookingView.DisplayMessage("Bokningen har ändrats.");
         _bookingView.DisplayBooking(booking);
+        Console.ReadKey();
     }
 
     private void RemoveBooking()
     {
         var bookingId = _bookingView.GetBookingId();
-
-        Console.Clear();
 
         if (_bookingService.RemoveBooking(bookingId))
         {
@@ -140,5 +138,6 @@ internal class BookingController(BookingView bookingView, BookingService booking
         {
             _bookingView.DisplayMessage($"Ingen bokning med ID: {bookingId} existerar.");
         }
+        Console.ReadKey();
     }
 }

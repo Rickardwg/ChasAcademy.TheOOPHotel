@@ -59,9 +59,11 @@ internal class BookingController(BookingView bookingView, BookingService booking
             lengthOfStay
         );
 
-        _bookingService.AddBooking(bookingInput);
+        var booking = _bookingService.AddBooking(bookingInput);
 
+        Console.Clear();
         _bookingView.DisplayMessage("Bokningen har skapats.");
+        _bookingView.DisplayBooking(booking);
     }
 
     private void EditBooking()
@@ -119,12 +121,16 @@ internal class BookingController(BookingView bookingView, BookingService booking
 
         _bookingService.EditBooking(bookingId, bookingInput);
 
+        Console.Clear();
         _bookingView.DisplayMessage("Bokningen har ändrats.");
+        _bookingView.DisplayBooking(booking);
     }
 
     private void RemoveBooking()
     {
         var bookingId = _bookingView.GetBookingId();
+
+        Console.Clear();
 
         if (_bookingService.RemoveBooking(bookingId))
         {

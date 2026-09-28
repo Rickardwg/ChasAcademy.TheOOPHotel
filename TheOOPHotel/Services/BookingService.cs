@@ -19,7 +19,7 @@ internal class BookingService()
         new Room(9, RoomType.Suite, 3000),
     ];
 
-    internal void AddBooking(BookingInput input)
+    internal Booking AddBooking(BookingInput input)
     {
         var booking = new Booking
         (
@@ -31,9 +31,11 @@ internal class BookingService()
         );
 
         _bookings.Add(booking);
+
+        return booking;
     }
 
-    internal void EditBooking(int bookingId, BookingInput input)
+    internal Booking EditBooking(int bookingId, BookingInput input)
     {
         var booking = GetBooking(bookingId);
 
@@ -41,6 +43,8 @@ internal class BookingService()
         booking.Room = input.Room;
         booking.StartDate = input.StartDate;
         booking.EndDate = booking.StartDate.AddDays(input.LengthOfStay);
+
+        return booking;
     }
 
     internal bool RemoveBooking(int bookingId)

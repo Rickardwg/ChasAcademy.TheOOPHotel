@@ -1,6 +1,6 @@
 ﻿namespace TheOOPHotel.Models;
 
-internal class Guest (string name, string email, string phoneNumber)
+public class Guest (string name, string email, string phoneNumber)
 {
     internal string Name { get; set; } = name;
     internal string Email { get; set; } = email;
